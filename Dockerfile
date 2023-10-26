@@ -11,6 +11,8 @@ COPY import_modal.py .
 
 RUN python import_modal.py
 
-COPY nllb.py .
+RUN pip install flask
 
-CMD ["python", "nllb.py"]
+COPY . .
+
+CMD ["python", "server.py"]
