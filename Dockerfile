@@ -2,11 +2,10 @@ FROM python:3.9
 
 # Install steps mostly taken from https://medium.com/mlearning-ai/text-translation-using-nllb-and-huggingface-tutorial-7e789e0f7816
 
+# Install main dependencies
+RUN pip install transformers sentencepiece fasttext
+# Install PyTorch. This command varies depending on your OS and other factors; see https://pytorch.org/get-started/locally/ for instructions for your system
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
-
-RUN pip install -U pip transformers
-RUN pip install sentencepiece
-RUN pip install fasttext
 
 COPY import_modal.py .
 
