@@ -13,8 +13,9 @@
       }
       #wrapper {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-column-gap: 2em;
+        grid-template-columns: 1fr auto 1fr;
+        grid-column-gap: 1em;
+        align-items: center;
       }
       #input,
       #output {
@@ -23,8 +24,9 @@
         border: 1px solid grey;
         font-size: 1rem;
         padding: 0.5rem;
+        margin-top: 1rem;
       }
-      #translateButton {
+      button {
         font-size: 1rem;
       }
       #endpoints {
@@ -48,8 +50,8 @@
         <label for="inputLanguage">Input language</label>
         <select id="inputLanguage" name="inputLanguage"></select>
         <textarea id="input"></textarea>
-        <button id="translateButton">Translate</button>
       </div>
+      <button id="swapButton">&#x21C4;</button>
       <div id="target">
         <h2>Target</h2>
         <label for="outputLanguage">Output language</label>
@@ -57,6 +59,7 @@
         <div id="output"></div>
       </div>
     </div>
+    <button id="translateButton">Translate</button>
     <h2>API instructions</h2>
     <ul id="endpoints">
       <li>GET /api/v1/translate/languages/</li>
@@ -65,7 +68,6 @@
     <script>
       async function start() {
         const URL = `${location.origin}/api/v1/translate/languages/`;
-        console.log(URL);
         const response = await fetch(URL, {
           headers: { "Content-Type": "application/json" },
         });
@@ -78,6 +80,8 @@
             select.appendChild(option);
           }
         }
+        inputLanguage.value = "eng_Latn";
+        outputLanguage.value = "spa_Latn";
       }
       start();
 
@@ -104,6 +108,15 @@
           console.error(e);
           alert("Error: " + e);
         }
+      });
+
+      swapButton.addEventListener("click", async () => {
+        const temp = inputLanguage.value;
+        inputLanguage.value = outputLanguage.value;
+        outputLanguage.value = temp;
+        input.value = output.textContent;
+        output.textContent = "";
+        translateButton.click();
       });
     </script>
   </body>
