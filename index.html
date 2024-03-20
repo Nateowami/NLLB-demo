@@ -85,7 +85,7 @@
       }
       start();
 
-      translateButton.addEventListener("click", async () => {
+      async function translate() {
         const text = input.value;
         const data = {
           sourceLanguage: inputLanguage.value,
@@ -108,6 +108,12 @@
           console.error(e);
           alert("Error: " + e);
         }
+      }
+
+      translateButton.addEventListener("click", translate);
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && (event.metaKey || event.ctrlKey))
+          translate();
       });
 
       swapButton.addEventListener("click", async () => {
