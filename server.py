@@ -1,4 +1,5 @@
 from flask import Flask, send_file, request, jsonify
+from transformers.models.nllb.tokenization_nllb import FAIRSEQ_LANGUAGE_CODES
 
 app = Flask(__name__)
 
@@ -13,7 +14,7 @@ def send_report():
 
 @app.route('/api/v1/translate/languages/', methods=['GET'])
 def translate_languages():
-    return list(tokenizer.lang_code_to_id.keys())
+    return list(FAIRSEQ_LANGUAGE_CODES)
 
 @app.route('/api/v1/translate/', methods=['POST'])
 def translate_text():
